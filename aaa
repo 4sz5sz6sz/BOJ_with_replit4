@@ -1,0 +1,22 @@
+# Segment Tree
+ADD(a, b) : arr[a]부터 arr[b]까지의 합을 반환, O(log N)
+UPDATA(x, val) : arr[x]의 값을 val만큼 변경, O(log N)
+
+vector<int> seg;
+
+// idx번째 node가 나타내는 구간이 st에서 en이고 1부터 r까지의 합을 구하고 싶다.
+int sum(int idx, int st, int en, int l, int r){
+	if(l > en || r < st) return 0;
+	if(l <= st && en <= r) return seg[idx];
+	return sum(2*idx, st, (st+en)/2, l, r) + sum(2*idx+1, (st+en)/2+1, en, l, r);
+}
+
+//idx번째 node가 나타내는 구간이 st에서 en이고 i번째 원소를 diff만큼 변화시키고 싶다.
+void update(int idx, int st, int en, int i, int diff){
+	if(st==en){
+		seg[idx] += diff;
+		return;
+	}
+	if(i <= (st+en)/2) update(2*idx, st, (st+en)/2, i, diff);
+	else update(2*idx+1, (st+en)/2+1, en, i, diff);
+}
