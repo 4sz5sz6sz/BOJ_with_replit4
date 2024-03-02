@@ -66,7 +66,7 @@
 		만약, 한 조각을 이룬다면
 			남아있는 # 조각 중 하나를 선택한다.
 			두 조각을 이루는지 flood fill 검사.
-				두 조각을 이룬다면, ans에 현재 #칸 좌표 추가.
+				~~두 조각을 이룬다면, ans에 현재 #칸 좌표 추가.~~
 		그렇지 않다면
 			break;
 
@@ -75,28 +75,41 @@ char board[IDX_MAX][IDX_MAX];
 Pos exc1, exc2;	//예외 조각 최대 2곳
 
 int numOfCho;	//초콜릿 갯수.
+vector<Pos> st;	//시작점 3개 저장해두기. 예비 1번~3번;
 
-bool isOnePiece(Pos start, int depth);
-bool oob(int nx, int ny, int X, int Y);
+bool isOnePiece(Pos start);
+bool oob(int nx, int ny, int x, int y);
+bool func1(Pos start);	//1번째 조각 떼어내기
+//bool func2(Pos start);	//2번째 조각 떼어내기
 
-bool isOnePiece(Pos start, int depth){
-	start 인접 4조각 중 하나를 queue에 넣기 시도.
-		exc1에 저장.
+bool func1(Pos start){
+	exc1 = start; exc2 = {-1,-1};
+	Pos st;	//아무 조각 선택. 2중 for문 돌리기.
+	if(isOnePiece(st2)){	//첫번째 조각 떼어내기
+		for() x
+			for() y //남아있는 조각 하나 선택, 전수 검사.
+				exc2에 현재 조각 저장.
+				st = ();	//아무 조각 선택. 2중 for문 돌리기.
+				두 조각을 이루는지 flood 검사.	//두번째 조각 떼어내기.
+					두 조각이 맞다면, 
+						검사 속행,
+					한 조각이라면,
+						return false;
+	}
+	return true;
+}
+
+bool isOnePiece(Pos start){
 	int cnt=0;
+	BFS 수행;
+	//(단, exc1과 exc2를 고려한다.)
+	
 	한 조각을 이룬다면
-		if(depth==0){
-			for(int i=0;i<N;i++){
-				for(int j=0;j<N;j++){
-					exc1이라면 continue;
-					isOnePiece({i,j},1);
-					단 한번이라도 1조각을 이룬다면 그 즉시 false 리턴.
-				}
-			}
-		}
 		return true;
 	그렇지 않다면
 		return false;
 }
 
 차라리 함수 3개로 나누는게 나을 듯..
+
 23:05 잠시 멈춤..
