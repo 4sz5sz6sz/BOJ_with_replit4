@@ -19,6 +19,16 @@ https://www.acmicpc.net/problem/13172
 ====
 
 #### 필요한 내용
+
+https://seastar105.tistory.com/64
+베주 항등식(Bezout's Identity)
+확장 유클리드 알고리즘(Extended Euclid Algorithm)
+
+https://seastar105.tistory.com/65
+모듈러 역원 설명(Modular Inverse)
+
+
+
 https://velog.io/@kasterra/큰-수의-이항-계수-mod-K-구하는-방법
 
 https://oberon.tistory.com/103
