@@ -26,6 +26,12 @@ https://www.acmicpc.net/problem/11689
 https://www.acmicpc.net/problem/1786
 
 
+https://physicsmathcoumputer.tistory.com/35
+게임이론, 돌게임
+
+**영어 문제 프린트하기**
+
+
 
 replit 단축키 모음
 https://docs.replit.com/programming-ide/keyboard-shortcuts
