@@ -1,0 +1,57 @@
+#define X first
+#define Y second
+#include<bits/stdc++.h>
+using namespace std;
+
+typedef pair<int,int> Node;
+
+//bool cmp1(Node A,Node B);
+
+struct cmp1{
+	bool operator()(Node A, Node B){
+		return min(A.X,A.Y) > min(B.X,B.Y);
+	}
+};
+
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0); cout.tie(0);
+
+	int N;
+	//vector<Node> arr;
+	priority_queue<Node,vector<Node>,cmp1> Q;
+
+	cin >> N;
+	//arr.resize(N);
+	for(int i=0;i<N;i++){
+		int a,b;
+		cin >> a >> b;
+		Q.push({a,b});
+	}
+
+	long long ans=0;
+	while(Q.size()>=2){
+		Node n1 = Q.top(); Q.pop();
+		Node n2 = Q.top(); Q.pop();
+
+		ans += n1.X * n2.Y + n1.Y * n2.X;
+		Q.push({n1.X + n2.X, n1.Y + n2.Y});
+	}
+
+	cout << ans << "\n";
+	
+	return 0;
+}
+
+/*
+bool cmp1(Node A,Node B){
+	return min(A.X,A.Y) > min(B.X,B.Y);
+}
+*/
+
+
+/*
+10:14 Problem Analysis
+30:11 중단..
+240318 16:46
+*/
