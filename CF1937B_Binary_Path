@@ -1,0 +1,213 @@
+#define X first
+#define Y second
+
+#define INF 9
+#define MXR 2
+#define MXC 200000
+#include<bits/stdc++.h>
+using namespace std;
+
+typedef pair<int,int> Node;
+
+int N;
+int A[MXR+2][MXC+2];
+int dp[MXR+2][MXC+2];
+int dist[MXR+2][MXC+2];
+Node hist[MXR+2][MXC+2];
+vector<int> ans;
+
+int dx[2] = {1,0};
+int dy[2] = {0,1};
+
+void Init();
+void ShowArr();
+
+void BFS(Node start);
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0); cout.tie(0);
+
+	
+	int T;
+	cin >> T;
+	while(T--){
+		//int N;
+		cin >> N;
+		Init();
+
+		dp[1][1] = 1;
+		for(int k=1;k<=2;k++){
+			string s;
+			cin >> s;
+			for(int i=1;i<=N;i++){
+				A[k][i] = s[i-1]-'0';
+			}
+		}
+		/*
+		for(int x=1;x<=MXR;x++){
+			for(int y=1;y<=N;y++){
+				if(x==1 && y==1) continue;
+				if(x-1 >= 0 && A[x-1][y] <= A[x][y-1]){	//prev : Up
+					dp[x][y] += dp[x-1][y];
+					hist[x][y] = {x-1,y};
+				}
+				if(y-1 >= 0 && A[x-1][y] >= A[x][y-1]){	//prev : Left
+					dp[x][y] += dp[x][y-1];
+					hist[x][y] = {x,y-1};
+				}
+			}
+		}
+		*/
+		
+		
+		for(int x=1;x<=MXR;x++){
+			for(int y=1;y<=N;y++){
+				if(dp[x][y] == 0) continue;
+				//if(x==1 && y==1) continue;
+				// cout << "	x :	" << x;
+				// cout << "	y :	" << y;
+				// cout << "\n";
+				//x+1 <= MXR && 
+				if(A[x+1][y] <= A[x][y+1]){	//next : Down
+					dp[x+1][y] += dp[x][y];
+					hist[x+1][y] = {x,y};
+				}
+				//y+1 <= N && 
+				if(A[x+1][y] >= A[x][y+1]){	//next : Right
+					dp[x][y+1] += dp[x][y];
+					hist[x][y+1] = {x,y};
+				}
+			}
+		}
+		
+		
+		Node cur = {MXR,N};
+		while(!(cur.X <= 1 && cur.Y <= 1)){
+			ans.push_back(A[cur.X][cur.Y]);
+			cout << "	cur.X :	" << cur.X;
+			cout << "	cur.Y :	" << cur.Y;
+			cout << "\n";
+			cur = hist[cur.X][cur.Y];
+		}
+		ans.push_back(A[1][1]);
+
+		for(int i=ans.size()-1;i>=0;i--){
+			cout << ans[i];
+		}
+		
+		ShowArr();
+
+		/*
+		Node cur = {1,1};
+		while(!(cur.X > MXR || cur.Y > N)){
+			cout << A[cur.X][cur.Y];
+			if(cur.X+1 >= MXR || A[cur.X+1][cur.Y] <= A[cur.X][cur.Y+1])
+				cur = {cur.X+1,cur.Y};
+			else if(cur.Y+1 >= MXC || A[cur.X+1][cur.Y] >= A[cur.X][cur.Y+1])
+				cur = {cur.X,cur.Y+1};
+		}
+		*/
+		
+		
+		cout << "\n";
+		cout << dp[MXR][N] << "\n";
+	}
+	
+	return 0;
+}
+
+void Init(){
+	for(int x=0;x<MXR+2;x++){
+		for(int y=0;y<=N;y++){
+			A[x][y] = INF;
+		}
+	}
+
+	for(int x=0;x<MXR+2;x++){
+		for(int y=0;y<=N;y++){
+			dp[x][y] = 0;
+		}
+	}
+
+	for(int x=0;x<MXR+2;x++){
+		for(int y=0;y<=N;y++){
+			dist[x][y] = INF;
+		}
+	}
+
+	for(int x=0;x<MXR+2;x++){
+		for(int y=0;y<=N;y++){
+			hist[x][y] = {0,0};
+		}
+	}
+
+	ans.clear();
+}
+
+void ShowArr(){
+	for(int x=1;x<=MXR;x++){
+		for(int y=1;y<=N;y++){
+			cout << "	x :	" << x;
+			cout << "	y :	" << y;
+			cout << "	hist[x][y].X :	" << hist[x][y].X;
+			cout << "	hist[x][y].Y :	" << hist[x][y].Y;
+			cout << "\n";
+		}
+	}
+}
+
+void BFS(Node start){
+	queue<Node> Q; Q.push(start);
+	dist[start.X][start.Y] = 0;
+	while(!Q.empty()){
+		Node cur = Q.front(); Q.pop();
+		for(int dir=0;dir<2;dir++){
+			int n1x = cur.X + dx[dir];
+			int n1y = cur.Y + dy[dir];
+			int n2x = cur.X + dx[dir^1];
+			int n2y = cur.Y + dy[dir^1];
+			//if(oob(nx,ny,MXR,N)) continue;
+			
+			//dist[n1x][n1y] = dist[cur.X][cur.Y] + 1;
+			if(A[n1x][n1y] <= A[n2x][n2y]){
+				dist[n1x][n1y] = dist[cur.X][cur.Y] + 1;
+				hist[n1x][n1y] = {cur.X,cur.Y};
+				if(dist[n1x][n1y] == INF){
+					Q.push({n1x,n1y});
+				}
+				dp[n1x][n1y] += dp[cur.X][cur.Y];
+			}
+		}
+	}
+}
+
+/*
+11:09 Problem Reading.
+24:24 Problem analysis.
+33:54 main() Completed.
+35:52 Init() Completed.
+39:18 error.
+
+if(x-1 >= 0 && A[x-1][y] <= dp[x][y-1]){	//prev : Up
+에서
+if(x-1 >= 0 && A[x-1][y] <= dp[x][y-1]){	//prev : Up
+로 수정..
+
+59:33 TC passed.
+TLE..
+
+for(int y=0;y<=MXC;y++){
+에서
+for(int y=0;y<=N;y++){
+로 수정.
+
+반례 발견.
+01:15:19
+//i일때 i-1에 대해서 하는 것이 아니라, i일때 i+1을 그려나가는 식으로 해야할 듯.
+
+01:31:00 PC 교체.
+
+28:49 포기.. BFS로 다시 짜는게 나을 듯.
+
+240319 01:01:11
+*/
