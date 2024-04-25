@@ -3,7 +3,8 @@ using namespace std;
 
 typedef long long ll;
 int N,M;
-int mid;
+ll mid;
+ll sum;
 vector<int> arr;
 
 bool Screen();
@@ -12,8 +13,7 @@ long long solution(int n, vector<int> times) {
 	N = n;
 	M = (int)times.size();
 	arr = times;
-	sort(arr.begin(),arr.end(),less<int>());
-	ll sum = 0;
+	sort(arr.begin(),arr.end());
 	//ll _max=arr[0];
 	for(int i=0;i<M;i++){
 		sum += arr[i];
@@ -22,7 +22,7 @@ long long solution(int n, vector<int> times) {
 	ll st = M;
 	//ll st = ceil(N*1.0/M);
 	//ll en = sum*M;
-	ll en = 100000ll * 100000;
+	ll en = 1000000000ll * M;
 	while(st<=en){
 		mid = (st+en)/2;
 		if(Screen())	//성공
@@ -50,5 +50,11 @@ bool Screen(){
 TLE..
 
 33:22 자정.. 잠정 중단..
-240423 
+
+240424 재개..
+11:43
+int mid를 ll mid로 고침.
+바로 정답!!
+
+240423 33:22+11:43
 */
