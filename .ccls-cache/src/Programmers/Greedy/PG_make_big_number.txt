@@ -1,0 +1,87 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+vector<int> parent;
+void munion(int a,int b);
+int find(int a);
+bool CheckSame(int a, int b);
+
+string solution(string array, int k) {
+	vector<int> arr;	//1-indexed로 변환.
+	arr.push_back(0);
+	for(int i=0;i<array.size();i++){
+		arr.push_back(array[i]-'0');
+	}
+
+	int N = arr.size();
+	parent.resize(N,-1);
+	vector<int> chk(N);
+	int cnt=0;
+
+	for(int i=1;i<N;i++){
+		int j=find(i-1);
+		if(j<=0) continue;
+
+		while(j-1>=0 && cnt < k){
+			if(arr[j] < arr[i]){ //arr[j] 삭제
+				cnt++;
+				chk[j] = 1;
+				munion(find(j-1),j);
+			}
+			j = find(j-1);
+		}
+	}
+
+	string ret;
+	for(int i=1;i<N;i++){
+		if(chk[i]) continue;
+		ret.push_back(to_string(arr[i])[0]);
+	}
+
+	return ret;
+}
+
+void munion(int a,int b){
+	a = find(a);
+	b = find(b);
+	if(CheckSame(a,b)) return;
+	parent[a]+=parent[b];
+	parent[b] = a;
+}
+
+int find(int a){
+	if(parent[a] < 0)
+		return a;
+	return parent[a] = find(parent[a]);
+}
+
+bool CheckSame(int a, int b){
+	return find(a) == find(b);
+}
+
+
+int main(){
+	cout << solution("123890532789098123234789",12);
+}
+
+
+/*
+02:56 Problem Analysis.
+04:59 solution() Completed.
+
+28:02 다시 짬. 유니온 파인드.
+38:05 main() Completed.
+45:08 UF 3개 구현 완료.
+47:01 TC passed.
+WA..
+49:39
+while(j-1>0 && cnt < k){
+에서
+while(find(j-1)>0 && cnt < k){
+로 수정.
+
+반례. 6555555555....55555555555554면 시간초과 확정.
+
+59:41 스택으로 풀기??? 최솟값을 찾아야된다는 목표를 세움. 덱으로 최솟값 찾는 P5 문제 떠오름. 그러나, 구간제한이 없으므로, front_pop()이 없어도 된다. 그래서 stack을 떠올림.
+240427 
+*/
