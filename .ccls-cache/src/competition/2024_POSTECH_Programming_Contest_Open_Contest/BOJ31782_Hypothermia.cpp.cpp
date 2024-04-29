@@ -48,10 +48,10 @@ int main(){
 				numOfColor++;
 				BFS_flood_fill({x,y});
 				int h = 0; int w = 0;
-				while(board[x+h][y] == numOfColor){
+				while(x+h < N && board[x+h][y] == numOfColor){
 					h++;
 				}
-				while(board[x][y+w] == numOfColor){
+				while(y+w < M && board[x][y+w] == numOfColor){
 					w++;
 				}
 				if(h > K && w > K) ans+=h*w;
@@ -59,7 +59,7 @@ int main(){
 		}
 	}
 
-	ShowBoard();
+	//ShowBoard();
 
 	cout << ans << "\n";
 	
@@ -118,7 +118,8 @@ void BFS_flood_fill(Pos start){
 			int nx = cur.X + dx[dir];
 			int ny = cur.Y + dy[dir];
 			if(oob(nx,ny,N,M)) continue;
-			if(board[nx][ny] == 0) continue;	//저체온증이라면, 탐색 중단.
+			//if(board[nx][ny] == 0) continue;	//저체온증이라면, 탐색 중단.
+			if(board[nx][ny] != -1) continue;	//무소속이 아니라 이미 색칠되어 있다면, PASS.
 			//if(!CheckSurvive({nx,ny})) continue;
 			Q.push({nx,ny});
 			board[nx][ny] = numOfColor;
@@ -154,5 +155,13 @@ if(h > K && w > K) ans+=h*w;
 
 PM 17:22 마무리..
 
-240428 51:07
+
+재개..
+61%에서 메모리 초과..
+
+07:24
+if(board[nx][ny] != -1) continue;	//무소속이 아니라 이미 색칠되어 있다면, PASS.
+flood fill에 삽입.
+
+240428 51:07 + 07:38
 */
