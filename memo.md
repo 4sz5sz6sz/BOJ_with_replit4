@@ -58,6 +58,10 @@ BOJ29754 버추얼 유튜버 S1
 %s/abc/aaa/g
 에서, abc가 아니라 week/7 같은 특수문자 처리?
 
+Vim에서 VSCode와 같은 멀티커서 기능을 쓰고싶습니다.
+https://okky.kr/questions/968581
+
+
 ### 프린트하기
 백준(BOJ) 11505 구간 곱 구하기 C++ 풀이
 https://jinho9610.tistory.com/24
