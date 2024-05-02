@@ -1,0 +1,22 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+int MAX_N = 10;
+int MIN_N = 1;
+ll MAX_DATA = 10;
+ll MIN_DATA = 0;
+
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0); cout.tie(0);
+
+	srand(time(NULL));
+	int N = rand()%MAX_N+1;
+	cout << N << "\n";
+	for(int i=0;i<N;i++){
+		cout << rand()%MAX_DATA << "\n";
+	}
+
+	return 0;
+}
