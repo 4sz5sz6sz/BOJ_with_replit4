@@ -1,38 +1,46 @@
-#include <bits/stdc++.h>
+#define INF 0x3f3f3f3f
+#include<bits/stdc++.h>
 using namespace std;
 
-int N,M,K;
-vector<int> ans;
+vector<int> A;
 
 int main(){
 	ios::sync_with_stdio(0);
 	cin.tie(0); cout.tie(0);
 
-	cin >> N >> M >> K;
-	priority_queue<int,vector<int>> Q;
+	int N,M;
+	//int ans=INF;
+	cin >> N >> M;
+
+	int cntOfP=0;
+
 	for(int i=0;i<N;i++){
 		int num;
 		cin >> num;
-		Q.push(num);
+		A.push_back(num);
+		if(num>0)
+			cntOfP++;
 	}
 
-	int prev = 0;
-	while(!Q.empty() && Q.top()>K){
-		int cur = Q.top(); Q.pop();
-		ans.push_back(cur+prev/2);
-		Q.push(cur-M);
-		prev = cur+prev/2;
+	sort(A.begin(),A.end(),greater<int>());
+	int ans=0;
+	//int len = min((int)ceil(M/2.0),cntOfP);
+	int len = min(M,cntOfP);
+	len = min(len, (int)ceil(N/2.0));
+	//cout << "	len : " << len << "\n";
+	for(int i=0;i<len;i++){
+		ans+=A[i];
 	}
 
-	cout << ans.size() << "\n";
-	for(int cur:ans)
-		cout << cur << "\n";
-
+	cout << ans << "\n";
+	
 	return 0;
 }
 
 /*
-01:07 Problem Analysis.
-06:35 main() Completed.
-240518 07:45
+08:20 Problem Analysis.
+13:36 main() Completed.
+15:27 M/2.0에서 M으로 변경.
+20:51 TC passed.
+240519 20:54
 */

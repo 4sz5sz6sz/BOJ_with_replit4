@@ -1,0 +1,86 @@
+#define X first
+#define Y second
+#define INF 0x3f3f3f3f
+#define IDX_MAX 1007
+#include<bits/stdc++.h>
+using namespace std;
+
+typedef pair<int,int> Pos;
+
+bool OOB(int nx, int ny, int N, int M);
+
+int N,M,R,C;
+
+int board[IDX_MAX][IDX_MAX];
+int dist[IDX_MAX][IDX_MAX];
+
+int dx[4] = {1,0,-1,0};
+int dy[4] = {0,1,0,-1};
+
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0); cout.tie(0);
+
+	queue<Pos> Q;
+	cin >> N >> M >> R >> C;
+
+	for(int i=0;i<N;i++){
+		for(int j=0;j<M;j++){
+			dist[i][j] = INF;
+		}
+	}
+	
+	while(R--){
+		int a,b,c;
+		cin >> a >> b >> c;
+		board[a][b] = c;
+		//dist[a][b] = 0;
+		//Q.push({0,a,b,c});
+	}
+	
+	while(C--){
+		int a,b;
+		cin >> a >> b;
+		//int cur = GetPosToInt({a,b});
+		board[a][b] = -1;
+		dist[a][b] = 0;
+		Q.push({a,b});
+	}
+
+	while(!Q.empty()){
+		Pos cur = Q.front(); Q.pop();
+		for(int dir=0;dir<4;dir++){
+			int nx = cur.X + dx[dir];
+			int ny = cur.Y + dy[dir];
+			int ndist = dist[cur.X][cur.Y] + 1;
+			if(OOB(nx,ny,N,M)) continue;
+			if(ndist >= dist[nx][ny]) continue;
+			Q.push({nx,ny}); dist[nx][ny] = ndist;
+		}
+	}
+
+	int ans = INF;
+	for(int i=0;i<N;i++){
+		for(int j=0;j<M;j++){
+			int cur = dist[i][j]*board[i][j];
+			if(board[i][j] > 0 && cur < ans){
+				ans = cur;
+			}
+		}
+	}
+	cout << ans << "\n";
+	return 0;
+}
+
+bool OOB(int nx, int ny, int N, int M){
+	return nx <= 0 || ny <= 0 || nx > N || ny > M;
+}
+
+/*
+07:53 Problem Analysis.
+34:11 Dijkstra() Completed.
+42:31 TC passed.
+다시 작성..
+48:51 BFS() Completed.
+240519 48:51
+*/
