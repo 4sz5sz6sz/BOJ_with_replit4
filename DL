@@ -22,3 +22,27 @@ https://school.programmers.co.kr/learn/courses/30/lessons/42746?language=python3
 ㅁㅁ
 
 http://dsba.korea.ac.kr/seminar/?mod=document&uid=1364
+
+Loss 함수
+
+CrossEntropyLoss
+L1Loss
+smoothL1Loss
+FocalLoss
+seasawLoss
+
+
+모델 구조
+Mask-R-CNN
+Cascade Mask R-CNN
+Hybrid Task Cascade
+SCNet
+Maskz Former
+
+
+Mask RCNN + Resnet101
+Cascade + Resnet101
+HTC + Resnet101
+HTC + HRNet-232
+Cascade + RegNet
+Cascade + Convnext-5
