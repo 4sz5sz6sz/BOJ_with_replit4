@@ -1,0 +1,52 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+ll N,C;
+ll ans;
+vector<ll> v[2];
+vector<ll> arr;
+
+void DFS(ll cur, int depth, int maxDepth, int add, int mode);
+
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0); cout.tie(0);
+
+	cin >> N >> C;
+	for(int i=0;i<N;i++){
+		ll input;
+		cin >> input;
+		arr.push_back(input);
+	}
+	
+	DFS(0,0,N/2,0,0);
+	DFS(0,0,N/2,1,0);
+
+	DFS(0,0,N-N/2,0,1);
+	DFS(0,0,N-N/2,1,1);
+
+	sort(v[0].begin(),v[0].end());
+	sort(v[1].begin(),v[1].end());
+
+	for(int i=0;i<v[0].size();i++){
+		ll k = C - v[0][i];
+		ans+= (int)v[1].size() - upper_bound(v[1].begin(),v[1].end(),k);
+	}
+
+	cout << ans << "\n";
+	
+	return 0;
+}
+
+void DFS(ll cur, int depth, int maxDepth, int add, int mode){
+	if(add)
+		v[mode].push_back(cur+)
+}
+
+/*
+05:41 Problem Anaylsis.
+20:25 main() Completed.
+23:50 ,자정 stop
+240531 
+*/
