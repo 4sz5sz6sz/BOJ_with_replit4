@@ -1,0 +1,42 @@
+#define X first
+#define Y second
+#include<bits/stdc++.h>
+using namespace std;
+
+typedef pair<int,int> Pos;
+
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0); cout.tie(0);
+
+	Pos curPos = {-1,-1};
+	bool ans = true;
+	
+	for(int loop=0;loop<36;loop++){
+		string s;
+		cin >> s;
+		int x = s[0] - 'A' + 1;
+		int y = s[1] - '0';
+		if(curPos.X == -1){
+			curPos = {x,y};
+			continue;
+		}
+		int dx = abs(curPos.X - x);
+		int dy = abs(curPos.Y - y);
+		if(dx + dy == 3 && dx > 0 && dy > 0) continue;
+		ans = false;
+		break;
+	}
+
+	if(ans)
+		cout << "Valid\n";
+	else
+		cout << "Invalid\n";
+	
+	return 0;
+}
+
+/*
+04:49
+240622 
+*/
