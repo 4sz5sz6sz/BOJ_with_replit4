@@ -1,0 +1,120 @@
+#define IDX_MAX 5000*2000+5
+// #define IDX_MAX 200*2000
+#include<bits/stdc++.h>
+using namespace std;
+
+vector<string> vc;
+vector<string> vn;
+vector<string> vq;
+unordered_map<string,int> m;
+int C,N;
+int Q;
+
+int ROOT = 1;
+int unused = 2;
+int nxt[IDX_MAX][26];
+bool chk[IDX_MAX];
+
+void Init();
+void insert(string &s);
+int find(int ptr, int depth, string &s);
+int c2i(char c);
+
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0); cout.tie(0);
+
+	Init();
+	cin >> C >> N;
+	for(int i=0;i<C;i++){
+		string s;
+		cin >> s;
+		vc.push_back(s);
+	}
+
+	for(int i=0;i<N;i++){
+		string s;
+		cin >> s;
+		vn.push_back(s);
+	}
+
+	cin >> Q;
+	for(int i=0;i<Q;i++){
+		string s;
+		cin >> s;
+		vq.push_back(s);
+		insert(s);
+	}
+
+	for(int i=0;i<C;i++){
+		int ptr = find(ROOT, 0, vc[i]);
+		if(!ptr) continue;
+		for(int j=0;j<N;j++){
+			//if(vc[i].size() + vn[j].size())
+			int ret = find(ptr, vc[i].size(), vn[j]);
+			if(ret>0){
+				m[vc[i]+vn[j]] = true;
+			} 
+		}
+	}
+
+	for(int i=0;i<Q;i++){
+		string s = vq[i];
+		if(m[s])
+			cout << "Yes\n";
+		else
+			cout << "No\n";
+	}
+	
+	return 0;
+}
+
+void Init(){
+	for(int i=0;i<IDX_MAX;i++)
+		fill(nxt[i],nxt[i]+26,-1);
+}
+
+void insert(string &s){
+	int cur = ROOT;
+	for(char c:s){
+		if(nxt[cur][c2i(c)] == -1)
+			nxt[cur][c2i(c)] = unused++;
+		cur = nxt[cur][c2i(c)];
+	}
+	chk[cur] = true;
+}
+
+int find(int ptr, int depth, string &s){
+	int cur = ptr;
+	for(char c:s){
+		if(nxt[cur][c2i(c)] == -1)
+			return false;
+		cur = nxt[cur][c2i(c)];
+	}
+	// cout << "	depth : " << depth;
+	// cout << "	s : " << s;
+	// cout << "		cur : " << cur;
+	// cout << "		prev : " << prev;
+	// cout << "\n";
+	if(depth==0 || chk[cur]) return cur;
+	return false;
+}
+
+int c2i(char c){
+	return c-'a';
+}
+
+
+
+/*
+03:44 Problem Analysis.
+15:41 main() Completed.
+18:55 Init() Completed.
+21:34 insert() Completed.
+25:23 find() Completed.
+25:35 c2i() Completed.
+WA...
+35:47 Init() 삽입...
+36:47 TC passed.
+240822 36:52
+*/
