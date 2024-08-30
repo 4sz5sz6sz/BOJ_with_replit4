@@ -1,0 +1,50 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+typedef struct Node{
+	int SCORE, RANK, DATA;
+	bool operator<(struct Node &temp){
+		if(SCORE != temp.SCORE) return SCORE > temp.SCORE;
+		if(RANK != temp.RANK) return RANK < temp.RANK;
+		return DATA < temp.DATA;
+	}
+}Node;
+unordered_map<int,int> m;
+
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0); cout.tie(0);
+
+	int N;
+	cin >> N;
+	for(int i=1;i<=N;i++){
+		int num;
+		cin >> num;
+		m[num] = i;
+	}
+
+	vector<Node> score(N+1);	//SCORE, RANK, DATA
+	score[0] = {-1,0,0};
+	int _max = -1;
+	for(int i=1;i<=N;i++){
+		int num;
+		cin >> num;
+		score[i] = {m[num]-i, i, num};
+		_max = max(_max, score[i].SCORE);
+	}
+
+	sort(score.begin()+1,score.end());
+	for(int i=1;i<=N;i++){
+		if(score[i].SCORE != _max) break;
+		cout << score[i].DATA << " ";
+	}
+	
+	return 0;
+}
+
+/*
+00:30 Problem Analysis.
+10:05 main() Completed.
+13:30 TC passed.
+240829 13:36
+*/
