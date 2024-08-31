@@ -1,0 +1,36 @@
+#define X first
+#define Y second
+#define INF 0x3f3f3f3f
+#include<bits/stdc++.h>
+using namespace std;
+
+typedef pair<int,int> Pos;
+
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0); cout.tie(0);
+
+	int N;
+	cin >> N;
+	Pos _min={INF,INF},_max={-INF,-INF};
+	for(int i=0;i<N;i++){
+		Pos p1,p2;
+		cin >> p1.X >> p1.Y >> p2.X >> p2.Y;
+		if(p1.X<_min.X) _min.X = p1.X;
+		if(p1.Y<_min.Y) _min.Y = p1.Y;
+		if(p2.X>_max.X) _max.X = p2.X;
+		if(p2.Y>_max.Y) _max.Y = p2.Y;
+		int ans = (_max.X - _min.X)*2 + (_max.Y - _min.Y)*2;
+		cout << ans << "\n";
+	}
+
+	
+	
+	return 0;
+}
+
+/*
+04:29 main() Completed.
+08:24 TC passed.
+240831 08:29
+*/

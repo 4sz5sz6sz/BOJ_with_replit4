@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+vector<int> arr;
+unordered_map<int,int> m;
+
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0); cout.tie(0);
+	int N;
+	cin >> N;
+	arr.push_back(0);
+	m[0]=1;
+
+	for(int i=1;i<=N;i++){
+		int next = arr[i-1] - i;
+		if(next < 0 || m[next]>0){
+			next = arr[i-1] + i;
+		}
+		arr.push_back(next);
+		m[next]++;
+	}
+	cout << arr[N] << "\n";
+	
+	return 0;
+}
+
+/*
+04:24 main() Completed.
+06:18 TC passed.
+240831 06:21
+*/

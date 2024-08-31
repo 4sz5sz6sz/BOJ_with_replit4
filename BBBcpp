@@ -1,0 +1,49 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+typedef struct Node{
+	int INDEX;
+	int A,B,C;
+	bool operator<(struct Node &temp){
+		return A+B+C > temp.A + temp.B + temp.C;
+	}
+}Node;
+
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0); cout.tie(0);
+
+	vector<Node> v;
+	vector<int> ans;
+	int N,M;
+	cin >> N >> M;
+	//ans.push_back(0);
+
+	int n1,n2,n3;
+	cin >> n1 >> n2 >> n3;
+	int sum=n1+n2+n3;
+	
+	for(int i=1;i<=N;i++){
+		int a,b,c;
+		cin >> a >> b >> c;
+		if(a+b+c<=sum)
+			v.push_back({i,a,b,c});
+	}
+	sort(v.begin(),v.end());
+
+	cout << "0 ";
+	for(int i=0;i<v.size();i++){
+		if(i+1 >= M) break;
+		cout << v[i].INDEX << " ";
+	}
+	
+	return 0;
+}
+
+/*
+01:22 Problem Analysis.
+11:24 TC passed.
+WA..
+18:24 TC passed.
+240830 18:29
+*/
